@@ -1,0 +1,234 @@
+​​1. Problem Definition and Analysis​​
+
+The Weather Wardrobe Assistant solves the problem of choosing clothes based on weather. People often pick the wrong clothes because the weather changes suddenly. This causes discomfort. The project uses Python skills learned in class. These skills include checking inputs, using if-else logic, organizing code into modules, and user login systems. Python is easy and flexible. This makes it good for building a text-based system that is both useful and educational.
+
+The system has four main goals:
+
+Keep user accounts safe with a login.
+
+Collect correct weather data like temperature and rain.
+
+Give clothes suggestions based on weather rules.
+
+Make the system easy to use with clear menus.
+
+The tool helps people who need quick outfit decisions, like workers or travelers. The project has four connected steps:
+
+User login (must work first).
+
+Weather data entry (needs valid inputs).
+
+Clothes recommendations (uses weather data).
+
+Option to restart or exit.
+
+Research looked at weather apps and clothing tools. The design uses simple text inputs and error checks. It avoids complex code to focus on basic Python ideas. This makes it easier for beginners.
+
+
+​​2. Documented Design​​ 
+
+​​2.1 System Design​​
+
+The system follows a ​​modular, top-down structure​​ (Fig. 1) with four components:
+
+​​Login Module​​: Validates credentials.
+
+​​Main Menu Controller​​: Manages user choices.
+
+​​Weather Input Module​​: Collects and validates data.
+
+​​Recommendation Engine​​: Generates suggestions.
+
+​​System Flowchart​​:
+
+Login → [Success] → Main Menu → {1: Weather Input, 2: Recommendations, 3: Exit} 
+
+​​2.2 Key Modules​​
+
+​​2.2.1 Login Module​​
+
+​​Purpose​​: Restrict unauthorised access.
+
+​​Mechanism​​: Compares user input with hardcoded credentials (username: ClimateUser, password: Weather123).
+
+​​Attempt Limit​​: Three failed attempts trigger program termination.
+
+​​Code Snippet​​:
+
+def login_system():  
+    attempts = 3  
+    while attempts > 0:  
+        username = input("Username: ").strip()  
+        password = input("Password: ").strip()  
+        if username == VALID_CREDENTIALS["username"] and password == VALID_CREDENTIALS["password"]:  
+            return True  
+        attempts -= 1  
+    return False 
+
+​​2.2.2 Weather Input Module​​
+
+​​Data Collected​​:
+
+Temperature (float): Validated using try-except to ensure numeric input.
+
+Raining (boolean): Converted from "yes/no" responses.
+
+Windy (boolean): Same as above.
+
+Validation Loops​​: Force valid inputs before proceeding.
+
+While True:  
+    Try:  
+        weather_data["temperature"] = float(input("Temperature (°C): "))  
+        break  
+    Except ValueError:  
+        print("Invalid input! Enter a number.") 
+        
+​​2.2.3 Recommendation Engine​​
+
+​​Logic​​:
+
+​​Temperature Ranges​​:
+
+<10°C: Thermal layers, gloves, hat.
+
+10–20°C: Light jacket, long sleeves.
+
+>20°C: Short sleeves, sun hat.
+
+​​Rain​​: Adds waterproof gear.
+
+​​Wind​​: Adds a windbreaker and scarf.
+
+Code Structure​​:
+
+if temp < 10:  
+      recommendations.append("- Thermal insulated jacket")  
+If rain:  
+recommendations.append("- Waterproof umbrella")
+
+​​2.3 Data Structures​​
+
+Global Dictionary​​:
+
+weather_data = {"temperature": None, "raining": None, "windy": None} 
+
+​​Credentials Storage​​: Hardcoded dictionary for simplicity.
+
+​​2.4 Algorithms​​
+
+​​Input Validation​​:
+
+WHILE True:  
+    TRY:  
+        Convert input to the required type (float for temperature).  
+        BREAK loop if valid.  
+    EXCEPT:  
+ Print error message. 
+ 
+​​Recommendation Rules​​:
+
+IF temperature < 10: Cold-weather items.  
+
+ELIF temperature <= 20: Mild-weather items.  
+
+ELSE: Warm-weather items.  
+
+Append rain/wind gear based on boolean flags. 
+
+​​2.5 Interface Design​​
+
+​​Input Screenshot (Fig. 2)​​:
+
+Enter today’s weather  
+
+Temperature (°C): 22.5  
+
+Is it raining? (yes/no): no  
+
+Is it windy? (yes/no): yes 
+
+​​Output Example (Fig. 3)​​:
+
+=== Clothing Recommendations ===  
+
+- T-shirt or short sleeves
+  
+- Shorts or light trousers
+  
+- Sun hat or cap
+  
+- Windbreaker outer layer
+  
+- Scarf for neck protection
+   
+- Comfortable walking shoes
+  
+​​2.6 Error Handling​​
+
+​​Temperature Input Error (Fig. 4)​​:
+
+Temperature (°C): twenty  
+
+Invalid input! Please enter a number. 
+
+​​Yes/No Validation​​: Rejects invalid responses until "yes" or "no" is entered.
+
+​​3. Testing and Evaluation​​ 
+
+​​3.1 Testing Strategy​​
+
+​​Test Case 1 (Login)​​:
+
+Input: Correct credentials → Access granted.
+
+Input: Incorrect credentials → Attempts decremented.
+
+​​Test Case 2 (Temperature)​​:
+
+Input: "15" → Accepted.
+
+Input: "cold" → Rejected until a valid number is entered.
+
+​​Test Case 3 (Recommendations)​​:
+
+Input: 5°C, raining → Suggested thermal jacket and umbrella.
+
+​​3.2 Objective Evaluation​​
+
+​​Secure Login​​: Achieved, but hardcoded credentials are insecure for real-world use.
+
+​​Weather Validation​​: Successful for numbers/yes-no inputs.
+
+​​Recommendations​​: Accurate for tested conditions.
+
+​​User-Friendly Design​​: Clear menu flow, but CLI limits visual appeal.
+
+​​3.3 Improvements​​
+
+​​Enhancements​​:
+
+Integrate weather APIS for real-time data.
+
+Add a GUI (e.g., Tkinter) for a better user experience.
+
+Implement user profiles for personalised preferences.
+
+​​Limitations​​:
+
+Basic CLI lacks images or interactive elements.
+
+No persistence for weather history.
+
+​​3.4 Feedback​​
+
+​​User Feedback​​: Praised simplicity but requested options to exclude specific items (e.g., hats).
+
+​​Supervisor Suggestion​​: Add unit tests for recommendation logic.
+
+​​Conclusion​​
+
+The Weather Wardrobe Assistant successfully meets its core objectives using foundational Python concepts. While limited by CLI design and hardcoded data, the project demonstrates effective problem-solving and modular programming. Future enhancements could expand its real-world applicability.
+
+
+
